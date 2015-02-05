@@ -34,10 +34,12 @@ def create_db(name):
 	db.commit()
 	return 'password = %s' %passwd
 
-def user_ldap(name):
+def user_ldap(name,passwd):
 	import ldap
 	from ldap import modlist
-
+	from passlib.hash import pbkdf2_sha256
+ 
+	passwd_encrypt = pbkdf2_sha256.encrypt(passwd, rounds=200000, salt_size=16)
 	# Open connection
 	l = ldap.initialize("ldap://localhost.example.com:636/")
 
@@ -55,7 +57,7 @@ def user_ldap(name):
 	attrs['uidNumber'] = '2000'
 	attrs['gidNumber'] = '2000'
 	attrs['homeDirectory'] = '/var/www/users/usuario'
-	attrs['userPassword'] = 'asdasd'
+	attrs['userPassword'] = passwd_encrypt
 	attrs['loginShell'] = '/bin/bash'
 
 	# Convert dict to ldif
