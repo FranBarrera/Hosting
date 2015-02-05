@@ -16,10 +16,20 @@ def create_directory(name,domain):
 	else:
 		print 'Name or Domain already exists.'
 
-def generate_passwd
+def generate_passwd():
 	from random import choice
 	passwd = ''
 	length = 15
-	valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	passwd = p.join([choice(valores) for i in range(longitud)])
+	values = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	passwd = passwd.join([choice(values) for i in range(length)])
 	return passwd
+
+def create_db(name):
+	import MySQLdb
+	passwd = generate_passwd()
+	db = MySQLdb.connect(host='localhost', user='root', passwd='super')
+	cursor = db.cursor()
+	cursor.execute('create database %s' %name)
+	cursor.execute("grant all privileges on %s.* to " %name+"%s" %name+" identified by "+"'%s'" %passwd)
+	db.commit()
+	return 'password = %s' %passwd
