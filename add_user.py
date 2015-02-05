@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import os
-from jinja2 import Environment, FileSystemLoader
 
 def create_directory(name,domain):
+	from jinja2 import Environment, FileSystemLoader
 	if os.path.isdir('/var/www/users/%s' %name) != True and os.path.isfile('/etc/apache2/sites-availables/%s' %domain) != True:
 		os.system('mkdir /var/www/%s' %name)
 		os.system('touch /etc/apache2/sites-availables/%s' %domain)
@@ -15,3 +15,11 @@ def create_directory(name,domain):
 		fdomain.close()
 	else:
 		print 'Name or Domain already exists.'
+
+def generate_passwd
+	from random import choice
+	passwd = ''
+	length = 15
+	valores = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	passwd = p.join([choice(valores) for i in range(longitud)])
+	return passwd
