@@ -34,18 +34,17 @@ def create_db(name):
 	db.commit()
 	return 'password = %s' %passwd
 
-def group_ldap():
+def group_ldap(name):
 	import ldap
 	from ldap import modlist
-	from passlib.hash import pbkdf2_sha256
  
 	l = ldap.initialize("ldap://localhost.example.com:389/")
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
-	dn="cn=group1,ou=Group,dc=example,dc=com" 
+	dn="cn="+name+",ou=Group,dc=example,dc=com" 
 
 	attrs = {}
 	attrs['objectclass'] = ['top','posixGroup']
-	attrs['cn'] = 'group1'
+	attrs['cn'] = name
 	attrs['gidNumber'] = '2000'
 
 	ldif = modlist.addModlist(attrs)
@@ -66,16 +65,16 @@ def user_ldap(name,passwd):
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
 
 	# new entry
-	dn="cn=user1,ou=People,dc=example,dc=com" 
+	dn="cn="+name+",ou=People,dc=example,dc=com" 
 
 	# add attributes
 	attrs = {}
 	attrs['objectclass'] = ['top','posixAccount','account']
-	attrs['cn'] = 'usuario'
-	attrs['uid'] = 'usuario'
+	attrs['cn'] = name
+	attrs['uid'] = name
 	attrs['uidNumber'] = '2000'
 	attrs['gidNumber'] = '2000'
-	attrs['homeDirectory'] = '/var/www/users/usuario'
+	attrs['homeDirectory'] = '/var/www/users/'+name
 	attrs['userPassword'] = passwd_encrypt
 	attrs['loginShell'] = '/bin/bash'
 
