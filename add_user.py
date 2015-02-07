@@ -34,6 +34,25 @@ def create_db(name):
 	db.commit()
 	return 'password = %s' %passwd
 
+def group_ldap():
+	import ldap
+	from ldap import modlist
+	from passlib.hash import pbkdf2_sha256
+ 
+	l = ldap.initialize("ldap://localhost.example.com:389/")
+	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
+	dn="cn=group1,ou=Group,dc=example,dc=com" 
+
+	attrs = {}
+	attrs['objectclass'] = ['top','posixGroup']
+	attrs['cn'] = 'group1'
+	attrs['gidNumber'] = '2000'
+
+	ldif = modlist.addModlist(attrs)
+	l.add_s(dn,ldif)
+	l.unbind_s()
+
+
 def user_ldap(name,passwd):
 	import ldap
 	from ldap import modlist
@@ -41,7 +60,7 @@ def user_ldap(name,passwd):
  
 	passwd_encrypt = pbkdf2_sha256.encrypt(passwd, rounds=200000, salt_size=16)
 	# Open connection
-	l = ldap.initialize("ldap://localhost.example.com:636/")
+	l = ldap.initialize("ldap://localhost.example.com:389/")
 
 	# login with user admin
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
