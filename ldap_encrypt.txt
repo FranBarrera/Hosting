@@ -1,0 +1,37 @@
+#instll python-ldap, python-passlib
+
+import ldap
+from ldap import modlist
+
+l = ldap.initialize("ldap://targaryen.example.com:389/")
+
+l.simple_bind_s("cn=admin,dc=example,dc=com","super")
+
+dn="cn=user1,dc=example,dc=com" 
+
+attrs = {}
+attrs['objectclass'] = ['top','posixAccount','account']
+attrs['cn'] = 'usuario'
+attrs['uid'] = 'usuario'
+attrs['uidNumber'] = '2000'
+attrs['gidNumber'] = '2000'
+attrs['homeDirectory'] = '/var/www/users/usuario'
+attrs['userPassword'] = 'asdasd'
+attrs['loginShell'] = '/bin/bash'
+
+ldif = modlist.addModlist(attrs)
+l.add_s(dn,ldif)
+l.unbind_s()
+
+
+
+#encrypt
+from passlib.hash import pbkdf2_sha256
+ 
+hash = pbkdf2_sha256.encrypt("password", rounds=200000, salt_size=16)
+
+
+#verify
+from passlib.hash import pbkdf2_sha256
+ 
+pbkdf2_sha256.verify("password", hash)
