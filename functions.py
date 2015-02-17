@@ -109,4 +109,4 @@ def generate_uid():
 	uidnumber=int(uidnumber)+1
 	f_uidnumber.write(str(uidnumber))
 	f_uidnumber.close()
-	return uidnumber
+	return str(uidnumber)
