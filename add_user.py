@@ -97,3 +97,12 @@ def create_zone(name,domain):
 	fdns.write(out)
 	fdns.close()
 
+def create_dns(name,domain):
+	from jinja2 import Environment, FileSystemLoader
+	os.system('touch /var/cache/bind/%s' %domain)
+	fdns = open('/var/cache/bind/%s' %domain,'w')
+	env = Environment(loader=FileSystemLoader('/etc/bind/'))
+	template = env.get_template('dns_template.tpl')
+	out = template.render(domain=domain)
+	fdns.write(out)
+	fdns.close()
