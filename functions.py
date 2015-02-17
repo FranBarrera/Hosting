@@ -24,6 +24,19 @@ def generate_passwd():
 	passwd = passwd.join([choice(values) for i in range(length)])
 	return passwd
 
+
+
+def encrypt(password):
+	import hashlib
+	from base64 import encodestring as encode
+	from base64 import decodestring as decode
+    
+    salt = os.urandom(4)
+    h = hashlib.sha1(password)
+    h.update(salt)
+    return "{SSHA}" + encode(h.digest() + salt)
+
+
 def create_db(name):
 	import MySQLdb
 	passwd = generate_passwd()
@@ -58,7 +71,7 @@ def user_ldap(name):
 	l.unbind_s()
 
 
-	passwd_encrypt = pbkdf2_sha256.encrypt(passwd, rounds=200000, salt_size=16)
+	passwd_encrypt = encrypt(passwd)
 
 	l = ldap.initialize("ldap://localhost.example.com:389/")
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
