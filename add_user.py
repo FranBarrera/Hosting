@@ -57,10 +57,6 @@ def user_ldap(name,passwd):
 	from ldap import modlist
 	from passlib.hash import pbkdf2_sha256
 
- 	f_uidnumber = open('f_uidnumber', 'r')
- 	uidnumber = f_uidnumber.readline()
- 	f_uidnumber.close()
-
 	passwd_encrypt = pbkdf2_sha256.encrypt(passwd, rounds=200000, salt_size=16)
 	# Open connection
 	l = ldap.initialize("ldap://localhost.example.com:389/")
@@ -91,11 +87,6 @@ def user_ldap(name,passwd):
 	# disconnect server
 	l.unbind_s()
 
- 	f_uidnumber = open('f_uidnumber', 'w')
- 	uidnumber=int(uidnumber)+1
- 	f_uidnumber.write(str(uidnumber))
-
- 	f_uidnumber.close()
 
 
 def create_zone(domain):
@@ -116,3 +107,14 @@ def create_dns(domain):
 	out = template.render(domain=domain)
 	fdns.write(out)
 	fdns.close()
+
+
+def generate_uid():
+	f_uidnumber = open('f_uidnumber', 'r')
+ 	uidnumber = f_uidnumber.readline()
+ 	f_uidnumber.close()
+
+  	f_uidnumber = open('f_uidnumber', 'w')
+ 	uidnumber=int(uidnumber)+1
+ 	f_uidnumber.write(str(uidnumber))
+ 	f_uidnumber.close()
