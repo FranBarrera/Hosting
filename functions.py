@@ -8,8 +8,8 @@ def create_directory(name,domain):
 		os.system('mkdir /var/www/%s' %name)
 		os.system('touch /etc/apache2/sites-availables/%s' %domain)
 		fdomain = open('/etc/apache2/sites-availables/%s' %domain)
-		env = Environment(loader=FileSystemLoader('/etc/apache2/sites-availables'))
-		template = env.get_template('template.tpl')
+		env = Environment(loader=FileSystemLoader('template'))
+		template = env.get_template('apache.tpl')
 		out = template.render(name=name,domain=domain)
 		fdomain.write(out)
 		fdomain.close()
@@ -84,7 +84,7 @@ def user_ldap(name):
 def create_zone(domain):
 	from jinja2 import Environment, FileSystemLoader
 	fdns = open('/etc/bind/named.conf.local','a')
-	env = Environment(loader=FileSystemLoader('/etc/bind/'))
+	env = Environment(loader=FileSystemLoader('templates'))
 	template = env.get_template('bind_template.tpl')
 	out = template.render(domain=domain)
 	fdns.write(out)
@@ -94,7 +94,7 @@ def create_dns(domain):
 	from jinja2 import Environment, FileSystemLoader
 	os.system('touch /var/cache/bind/%s' %domain)
 	fdns = open('/var/cache/bind/%s' %domain,'w')
-	env = Environment(loader=FileSystemLoader('/etc/bind/'))
+	env = Environment(loader=FileSystemLoader('templates'))
 	template = env.get_template('dns_template.tpl')
 	out = template.render(domain=domain)
 	fdns.write(out)
