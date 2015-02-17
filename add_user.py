@@ -56,7 +56,11 @@ def user_ldap(name,passwd):
 	import ldap
 	from ldap import modlist
 	from passlib.hash import pbkdf2_sha256
- 
+
+ 	f_uidnumber = open('f_uidnumber', 'r')
+ 	uidnumber = f_uidnumber.readline()
+ 	f_uidnumber.close()
+
 	passwd_encrypt = pbkdf2_sha256.encrypt(passwd, rounds=200000, salt_size=16)
 	# Open connection
 	l = ldap.initialize("ldap://localhost.example.com:389/")
@@ -72,8 +76,8 @@ def user_ldap(name,passwd):
 	attrs['objectclass'] = ['top','posixAccount','account']
 	attrs['cn'] = name
 	attrs['uid'] = name
-	attrs['uidNumber'] = '2000'
-	attrs['gidNumber'] = '2000'
+	attrs['uidNumber'] = uidnumber
+	attrs['gidNumber'] = uidnumber
 	attrs['homeDirectory'] = '/var/www/users/'+name
 	attrs['userPassword'] = passwd_encrypt
 	attrs['loginShell'] = '/bin/bash'
@@ -86,6 +90,12 @@ def user_ldap(name,passwd):
 
 	# disconnect server
 	l.unbind_s()
+
+ 	f_uidnumber = open('f_uidnumber', 'w')
+ 	uidnumber=int(uidnumber)+1
+ 	f_uidnumber.write(str(uidnumber))
+
+ 	f_uidnumber.close()
 
 
 def create_zone(domain):
