@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from functions.py import *
+from functions import *
 import sys
 
 name=(sys.argv[1])
