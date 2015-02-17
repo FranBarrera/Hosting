@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from functions.py import *
+import sys
 
 name=(sys.argv[1])
 domain=(sys.argv[2])
