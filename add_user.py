@@ -88,7 +88,7 @@ def user_ldap(name,passwd):
 	l.unbind_s()
 
 
-def create_dns(name,domain):
+def create_zone(name,domain):
 	from jinja2 import Environment, FileSystemLoader
 	fdns = open('/etc/bind/named.conf.local','a')
 	env = Environment(loader=FileSystemLoader('/etc/bind/'))
@@ -96,3 +96,4 @@ def create_dns(name,domain):
 	out = template.render(domain=domain)
 	fdns.write(out)
 	fdns.close()
+
