@@ -41,7 +41,7 @@ def group_ldap(name):
 
 
 
-def user_ldap(name,passwd):
+def user_ldap(name,passwd,uidnumber):
 	import ldap
 	from ldap import modlist
 	from passlib.hash import pbkdf2_sha256
@@ -56,7 +56,7 @@ def user_ldap(name,passwd):
 	attrs = {}
 	attrs['objectclass'] = ['top','posixGroup']
 	attrs['cn'] = name
-	attrs['gidNumber'] = '2000'
+	attrs['gidNumber'] = uidnumber
 
 	ldif = modlist.addModlist(attrs)
 	l.add_s(dn,ldif)
@@ -65,7 +65,7 @@ def user_ldap(name,passwd):
 # create user
 
 	passwd_encrypt = pbkdf2_sha256.encrypt(passwd, rounds=200000, salt_size=16)
-	
+
 	l = ldap.initialize("ldap://localhost.example.com:389/")
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
 	dn="cn="+name+",ou=People,dc=example,dc=com" 
