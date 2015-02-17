@@ -41,11 +41,12 @@ def group_ldap(name):
 
 
 
-def user_ldap(name,passwd,uidnumber):
+def user_ldap(name,passwd):
 	import ldap
 	from ldap import modlist
 	from passlib.hash import pbkdf2_sha256
 
+	uidnumber = generate_uid()
 
 # create group
 
