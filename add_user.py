@@ -34,12 +34,6 @@ def create_db(name):
 	db.commit()
 	return 'password = %s' %passwd
 
-def group_ldap(name):
-	import ldap
-	from ldap import modlist
- 
-
-
 
 def user_ldap(name,passwd):
 	import ldap
