@@ -32,7 +32,7 @@ def create_db(name):
 	cursor.execute('create database %s' %name)
 	cursor.execute("grant all privileges on %s.* to " %name+"%s" %name+" identified by "+"'%s'" %passwd)
 	db.commit()
-	return 'password = %s' %passwd
+	print 'password mysql = %s' %passwd
 
 
 def user_ldap(name):
@@ -42,7 +42,7 @@ def user_ldap(name):
 
 	uidnumber = generate_uid()
 	passwd = generate_passwd()
-# create group
+
 
 	l = ldap.initialize("ldap://localhost.example.com:389/")
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
@@ -57,7 +57,6 @@ def user_ldap(name):
 	l.add_s(dn,ldif)
 	l.unbind_s()
 
-# create user
 
 	passwd_encrypt = pbkdf2_sha256.encrypt(passwd, rounds=200000, salt_size=16)
 
@@ -78,7 +77,7 @@ def user_ldap(name):
 	ldif = modlist.addModlist(attrs)
 	l.add_s(dn,ldif)
 	l.unbind_s()
-
+	print 'password ftp = %s' %passwd
 
 
 def create_zone(domain):
@@ -103,10 +102,11 @@ def create_dns(domain):
 
 def generate_uid():
 	f_uidnumber = open('f_uidnumber', 'r')
- 	uidnumber = f_uidnumber.readline()
- 	f_uidnumber.close()
+	uidnumber = f_uidnumber.readline()
+	f_uidnumber.close()
 
-  	f_uidnumber = open('f_uidnumber', 'w')
- 	uidnumber=int(uidnumber)+1
- 	f_uidnumber.write(str(uidnumber))
- 	f_uidnumber.close()
+	f_uidnumber = open('f_uidnumber', 'w')
+	uidnumber=int(uidnumber)+1
+	f_uidnumber.write(str(uidnumber))
+	f_uidnumber.close()
+	return uidnumber
