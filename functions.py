@@ -62,7 +62,7 @@ def user_ldap(name):
 
 	l = ldap.initialize("ldap://localhost.example.com:389/")
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
-	dn="cn="+name+",ou=People,dc=example,dc=com" 
+	dn="uid="+name+",ou=People,dc=example,dc=com" 
 
 	attrs = {}
 	attrs['objectclass'] = ['top','posixAccount','account']
