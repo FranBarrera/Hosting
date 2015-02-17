@@ -30,11 +30,11 @@ def encrypt(password):
 	import hashlib
 	from base64 import encodestring as encode
 	from base64 import decodestring as decode
-    
-    salt = os.urandom(4)
-    h = hashlib.sha1(password)
-    h.update(salt)
-    return "{SSHA}" + encode(h.digest() + salt)
+
+	salt = os.urandom(4)
+	h = hashlib.sha1(password)
+	h.update(salt)
+	return "{SSHA}" + encode(h.digest() + salt)
 
 
 def create_db(name):
