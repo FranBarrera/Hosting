@@ -94,5 +94,5 @@ def create_dns(name,domain):
 	env = Environment(loader=FileSystemLoader('/etc/bind/'))
 	template = env.get_template('bind_template.tpl')
 	out = template.render(domain=domain)
-	fdomain.write(out)
-	fdomain.close()
+	fdns.write(out)
+	fdns.close()
