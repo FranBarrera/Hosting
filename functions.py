@@ -7,7 +7,7 @@ def create_directory(name,domain):
 	if os.path.isdir('/var/www/users/%s' %name) != True and os.path.isfile('/etc/apache2/sites-availables/%s' %domain) != True:
 		os.system('mkdir /var/www/%s' %name)
 		os.system('touch /etc/apache2/sites-available/%s' %domain)
-		fdomain = open('/etc/apache2/sites-available/%s','w' %domain)
+		fdomain = open('/etc/apache2/sites-available/%s' %domain ,'w')
 		env = Environment(loader=FileSystemLoader('templates'))
 		template = env.get_template('apache.tpl')
 		out = template.render(name=name,domain=domain)
