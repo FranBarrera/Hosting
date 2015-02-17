@@ -35,13 +35,13 @@ def create_db(name):
 	return 'password = %s' %passwd
 
 
-def user_ldap(name,passwd):
+def user_ldap(name):
 	import ldap
 	from ldap import modlist
 	from passlib.hash import pbkdf2_sha256
 
 	uidnumber = generate_uid()
-
+	passwd = generate_passwd()
 # create group
 
 	l = ldap.initialize("ldap://localhost.example.com:389/")
