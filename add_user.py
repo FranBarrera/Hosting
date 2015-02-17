@@ -38,6 +38,17 @@ def group_ldap(name):
 	import ldap
 	from ldap import modlist
  
+
+
+
+def user_ldap(name,passwd):
+	import ldap
+	from ldap import modlist
+	from passlib.hash import pbkdf2_sha256
+
+
+# create group
+
 	l = ldap.initialize("ldap://localhost.example.com:389/")
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
 	dn="cn="+name+",ou=Group,dc=example,dc=com" 
@@ -51,23 +62,14 @@ def group_ldap(name):
 	l.add_s(dn,ldif)
 	l.unbind_s()
 
-
-def user_ldap(name,passwd):
-	import ldap
-	from ldap import modlist
-	from passlib.hash import pbkdf2_sha256
+# create user
 
 	passwd_encrypt = pbkdf2_sha256.encrypt(passwd, rounds=200000, salt_size=16)
-	# Open connection
+	
 	l = ldap.initialize("ldap://localhost.example.com:389/")
-
-	# login with user admin
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
-
-	# new entry
 	dn="cn="+name+",ou=People,dc=example,dc=com" 
 
-	# add attributes
 	attrs = {}
 	attrs['objectclass'] = ['top','posixAccount','account']
 	attrs['cn'] = name
@@ -78,13 +80,8 @@ def user_ldap(name,passwd):
 	attrs['userPassword'] = passwd_encrypt
 	attrs['loginShell'] = '/bin/bash'
 
-	# Convert dict to ldif
 	ldif = modlist.addModlist(attrs)
-
-	# add entry
 	l.add_s(dn,ldif)
-
-	# disconnect server
 	l.unbind_s()
 
 
