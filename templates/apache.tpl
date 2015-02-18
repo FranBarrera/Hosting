@@ -1,6 +1,6 @@
 <VirtualHost *:80>
 	ServerAdmin webmaster@localhost
-	ServerName {{domain}}
+	ServerName www.{{domain}}
 	DocumentRoot /var/www/users/{{name}}
 	<Directory /var/www/users/{{name}}>
 		Options Indexes FollowSymLinks MultiViews
