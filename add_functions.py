@@ -4,24 +4,21 @@ import os
 
 def create_directory(name,domain):
 	from jinja2 import Environment, FileSystemLoader
-	if os.path.isdir('/var/www/users/%s' %name) != True and os.path.isfile('/etc/apache2/sites-availables/%s' %domain) != True:
-		os.system('mkdir /var/www/users/%s' %name)
-		os.system('touch /etc/apache2/sites-available/%s' %domain)
-		os.system('touch /var/www/users/%s/index.html' %name)
-		fdomain = open('/etc/apache2/sites-available/%s' %domain ,'w')
-		findex = open('/var/www/users/%s/index.html' %name ,'w')
-		env = Environment(loader=FileSystemLoader('templates'))
-		template = env.get_template('apache.tpl')
-		out = template.render(name=name,domain=domain)
-		fdomain.write(out)
-		fdomain.close()
-		template = env.get_template('index.tpl')
-		out = template.render(domain=domain)
-		findex.write(out)
-		findex.close()
-		os.system('a2ensite %s 1>/dev/null' %domain)
-	else:
-		print 'Name or Domain already exists.'
+	os.system('mkdir /var/www/users/%s' %name)
+	os.system('touch /etc/apache2/sites-available/%s' %domain)
+	os.system('touch /var/www/users/%s/index.html' %name)
+	fdomain = open('/etc/apache2/sites-available/%s' %domain ,'w')
+	findex = open('/var/www/users/%s/index.html' %name ,'w')
+	env = Environment(loader=FileSystemLoader('templates'))
+	template = env.get_template('apache.tpl')
+	out = template.render(name=name,domain=domain)
+	fdomain.write(out)
+	fdomain.close()
+	template = env.get_template('index.tpl')
+	out = template.render(domain=domain)
+	findex.write(out)
+	findex.close()
+	os.system('a2ensite %s 1>/dev/null' %domain)
 
 def generate_passwd():
 	from random import choice
