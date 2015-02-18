@@ -19,7 +19,7 @@ def create_directory(name,domain):
 		out = template.render(domain=domain)
 		findex.write(out)
 		findex.close()
-		os.system('a2ensite %s' %domain)
+		os.system('a2ensite %s 1>/dev/null' %domain)
 	else:
 		print 'Name or Domain already exists.'
 

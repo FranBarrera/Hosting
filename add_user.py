@@ -13,5 +13,5 @@ user_ldap(name)
 create_zone(domain)
 create_dns(domain)
 
-os.system('service apache2 restart')
-os.system('service bind9 restart')
+os.system('service apache2 restart 1>/dev/null 2>/dev/null')
+os.system('service bind9 restart 1>/dev/null 2>/dev/null')
