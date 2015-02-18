@@ -7,6 +7,7 @@ def delete_db(name):
 	db = MySQLdb.connect(host='localhost', user='root', passwd='super')
 	cursor = db.cursor()
 	cursor.execute('drop database %s' %name)
+	cursor.execute('drop user %s' %name)
 	db.commit()
 
 
