@@ -16,7 +16,7 @@ def create_directory(name,domain):
 		fdomain.write(out)
 		fdomain.close()
 		template = env.get_template('index.tpl')
-		out = temaplte.render(domain=domain)
+		out = template.render(domain=domain)
 		findex.write(out)
 		findex.close()
 	else:
