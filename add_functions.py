@@ -4,7 +4,6 @@ import os
 
 def create_directory(name,domain):
 	from jinja2 import Environment, FileSystemLoader
-	os.system('mkdir /var/www/users')
 	os.system('mkdir /var/www/users/%s' %name)
 	os.system('touch /etc/apache2/sites-available/%s' %domain)
 	os.system('touch /var/www/users/%s/index.html' %name)
@@ -45,7 +44,7 @@ def encrypt(password):
 def create_db(name):
 	import MySQLdb
 	passwd = generate_passwd()
-	db = MySQLdb.connect(host='localhost', user='root', passwd='super')
+	db = MySQLdb.connect(host='localhost', user='root', passwd='asdasd')
 	cursor = db.cursor()
 	cursor.execute('create database %s' %name)
 	cursor.execute("grant all privileges on %s.* to " %name+"%s" %name+" identified by "+"'%s'" %passwd)
@@ -94,7 +93,7 @@ def user_ldap(name):
 	ldif = modlist.addModlist(attrs)
 	l.add_s(dn,ldif)
 	l.unbind_s()
-	os.system('chown -R %s:%s /var/www/users/%s' % (uidnumber,uidnumber,name)
+	os.system('chown -R %s:%s /var/www/users/%s' % (uidnumber,uidnumber,name))
 	print 'password ftp = %s' %passwd
 
 
