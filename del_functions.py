@@ -4,7 +4,7 @@ import os
 
 def delete_db(name):
 	import MySQLdb
-	db = MySQLdb.connect(host='localhost', user='root', passwd='super')
+	db = MySQLdb.connect(host='localhost', user='root', passwd='asdasd')
 	cursor = db.cursor()
 	cursor.execute('drop database %s' %name)
 	cursor.execute('drop user %s' %name)
@@ -35,8 +35,8 @@ def delete_dns(domain):
 
 
 def delete_ldap(name):
-	os.system('ldapdelete -x -D "cn=admin,dc=example,dc=com" "uid=%s,ou=People,dc=example,dc=com" -w super'%name)
-	os.system('ldapdelete -x -D "cn=admin,dc=example,dc=com" "cn=%s,ou=Group,dc=example,dc=com" -w super' %name)
+	os.system('ldapdelete -x -D "cn=admin,dc=example,dc=com" "uid=%s,ou=People,dc=example,dc=com" -w asdasd'%name)
+	os.system('ldapdelete -x -D "cn=admin,dc=example,dc=com" "cn=%s,ou=Group,dc=example,dc=com" -w asdasd' %name)
 
 
 
