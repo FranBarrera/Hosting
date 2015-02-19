@@ -1,0 +1,12 @@
+fread = open('/etc/bind/named.conf.local','r')
+
+lineas = fread.readlines()
+
+fread.close()
+
+for i in lineas:
+	if i == "# zona de javi.com\n":
+		print lineas.index(i)
+
+for i in xrange(1,5):
+	lineas.pop(indice)
