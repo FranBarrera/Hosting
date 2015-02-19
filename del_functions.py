@@ -26,7 +26,7 @@ def delete_dns(domain):
 
 	fwrite = open('/etc/bind/named.conf.local','w')
 	for linea in lineas:
-		if linea == '# zona de %s\n' % domain
+		if linea == '# zona de %s\n' % domain:
 			indice = lineas.index(linea)
 	for i in lineas[indice-1:indice+4]:
     	lista.remove(i)
