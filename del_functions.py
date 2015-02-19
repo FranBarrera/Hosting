@@ -29,9 +29,9 @@ def delete_dns(domain):
 		if linea == '# zona de %s\n' % domain:
 			indice = lineas.index(linea)
 	for i in lineas[indice-1:indice+4]:
-    	lista.remove(i)
+    	lineas.remove(i)
     
-    fwrite.write(lista)
+    fwrite.write(lineas)
     fwrite.write()
 
 
