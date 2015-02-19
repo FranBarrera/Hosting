@@ -2,7 +2,7 @@ import os
 
 def modify_db(name,passwd):
 	import MySQLdb
-	db = MySQLdb.connect(host='localhost', user='root', passwd='super')
+	db = MySQLdb.connect(host='localhost', user='root', passwd='asdasd')
 	cursor = db.cursor()
 	cursor.execute("SET PASSWORD FOR '%s' = PASSWORD('%s')" % (name,passwd))
 	db.commit()
@@ -17,5 +17,5 @@ def modify_ldap(name,passwd):
 	out = template.render(name=name,passwd=passwd)
 	ldif.write(out)
 	ldif.close()
-	os.system('ldapmodify -D "cn=admin,dc=example,dc=com" -w super -f /tmp/modify.ldif')
+	os.system('ldapmodify -D "cn=admin,dc=example,dc=com" -w asdasd -f /tmp/modify.ldif')
 	print 'password ldap modificada'

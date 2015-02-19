@@ -60,7 +60,7 @@ def user_ldap(name):
 	passwd = generate_passwd()
 
 
-	l = ldap.initialize("ldap://localhost.example.com:389/")
+	l = ldap.initialize("ldap://hosting.example.com:389/")
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
 	dn="cn="+name+",ou=Group,dc=example,dc=com" 
 
@@ -76,7 +76,7 @@ def user_ldap(name):
 
 	passwd_encrypt = encrypt(passwd)
 
-	l = ldap.initialize("ldap://localhost.example.com:389/")
+	l = ldap.initialize("ldap://hosting.example.com:389/")
 	l.simple_bind_s("cn=admin,dc=example,dc=com","asdasd")
 	dn="uid="+name+",ou=People,dc=example,dc=com" 
 
