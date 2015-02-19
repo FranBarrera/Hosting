@@ -54,8 +54,6 @@ def create_db(name):
 
 def user_ldap(name):
 	import ldap
-	from ldap import modlist
-	from passlib.hash import pbkdf2_sha256
 
 	uidnumber = generate_uid()
 	passwd = generate_passwd()
@@ -94,6 +92,7 @@ def user_ldap(name):
 	ldif = modlist.addModlist(attrs)
 	l.add_s(dn,ldif)
 	l.unbind_s()
+	os.system('chown -R name:name /var/www/users/%s' %name)
 	print 'password ftp = %s' %passwd
 
 
