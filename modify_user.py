@@ -3,8 +3,11 @@
 from modify_functions import *
 import sys, os
 
-name=(sys.argv[1])
-passwd=(sys.argv[2])
+tipo=(sys.argv[1])
+name=(sys.argv[2])
+passwd=(sys.argv[3])
 
-modify_db(name,passwd)
-modify_ldap(name,passwd)
+if tipo == '-sql'
+	modify_db(name,passwd)
+elif tipo == '-ftp'
+	modify_ldap(name,passwd)
