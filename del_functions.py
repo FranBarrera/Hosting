@@ -23,16 +23,15 @@ def delete_dns(domain):
 	fread = open('/etc/bind/named.conf.local','r')
 	lineas = fread.readlines()
 	fread.close()
-
 	fwrite = open('/etc/bind/named.conf.local','w')
 	for linea in lineas:
 		if linea == '# zona de %s\n' % domain:
 			indice = lineas.index(linea)
-	for i in lineas[indice-1:indice+4]:
-    	lineas.remove(i)
-    
-    fwrite.write(lineas)
-    fwrite.write()
+	for i in lineas[indice:indice+5]:
+		lineas.remove(i)
+	for i in lineas:
+		fwrite.write(i)
+	fwrite.close()
 
 
 def delete_ldap(name):
