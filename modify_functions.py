@@ -17,5 +17,5 @@ def modify_ldap(name,passwd):
 	out = template.render(name=name,passwd=passwd)
 	ldif.write(out)
 	ldif.close()
-	os.system('ldapmodify -D "cn=admin,dc=example,dc=com" -w asdasd -f /tmp/modify.ldif')
+	os.system('ldapmodify -D "cn=admin,dc=example,dc=com" -w asdasd -f /tmp/modify.ldif 1>/dev/null 2>/dev/null')
 	print 'password ldap modificada'
