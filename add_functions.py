@@ -4,6 +4,7 @@ import os
 
 def create_directory(name,domain):
 	from jinja2 import Environment, FileSystemLoader
+	os.system('mkdir /var/www/users')
 	os.system('mkdir /var/www/users/%s' %name)
 	os.system('touch /etc/apache2/sites-available/%s' %domain)
 	os.system('touch /var/www/users/%s/index.html' %name)
@@ -54,6 +55,7 @@ def create_db(name):
 
 def user_ldap(name):
 	import ldap
+	import ldap.modlist as modlist
 
 	uidnumber = generate_uid()
 	passwd = generate_passwd()
@@ -92,7 +94,7 @@ def user_ldap(name):
 	ldif = modlist.addModlist(attrs)
 	l.add_s(dn,ldif)
 	l.unbind_s()
-	os.system('chown -R name:name /var/www/users/%s' %name)
+	os.system('chown -R %s:%s /var/www/users/%s' % (uidnumber,uidnumber,name)
 	print 'password ftp = %s' %passwd
 
 

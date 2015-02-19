@@ -11,7 +11,7 @@ $TTL    604800
 ;
 @               IN      NS      hosting.{{domain}}.
 $ORIGIN {{domain}}.
-hosting       	IN      A       192.168.10.5
+hosting       	IN      A       172.22.200.209
 www				IN		CNAME	hosting
 ftp				IN		CNAME	hosting
 mysql			IN		CNAME	hosting
