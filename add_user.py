@@ -9,6 +9,7 @@ domain=(sys.argv[2])
 if os.path.isdir('/var/www/users/%s' %name) != True and os.path.isfile('/etc/apache2/sites-availables/%s' %domain) != True:
 
 	create_directory(name,domain)
+	create_mysql
 	create_db(name)
 	user_ldap(name)
 	create_zone(domain)

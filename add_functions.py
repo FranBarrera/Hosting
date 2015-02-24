@@ -7,6 +7,7 @@ def create_directory(name,domain):
 	os.system('mkdir /var/www/users/%s' %name)
 	os.system('touch /etc/apache2/sites-available/%s' %domain)
 	os.system('touch /var/www/users/%s/index.html' %name)
+	os.system('touch /etc/apache2/sites-available/mysql_%s' %domain)
 	fdomain = open('/etc/apache2/sites-available/%s' %domain ,'w')
 	findex = open('/var/www/users/%s/index.html' %name ,'w')
 	env = Environment(loader=FileSystemLoader('templates'))
@@ -19,6 +20,16 @@ def create_directory(name,domain):
 	findex.write(out)
 	findex.close()
 	os.system('a2ensite %s 1>/dev/null' %domain)
+
+def create_mysql(domain):
+	from jinja2 import Environment, FileSystemLoader
+	fdns = open('/etc/apache/sites-available/mysql_%s' %domain,'w')
+	env = Environment(loader=FileSystemLoader('templates'))
+	template = env.get_template('mysql_template.tpl')
+	out = template.render(domain=domain)
+	fdns.write(out)
+	fdns.close()
+
 
 def generate_passwd():
 	from random import choice
@@ -47,7 +58,7 @@ def create_db(name):
 	db = MySQLdb.connect(host='localhost', user='root', passwd='asdasd')
 	cursor = db.cursor()
 	cursor.execute('create database %s' %name)
-	cursor.execute("grant all privileges on %s.* to " %name+"%s" %name+" identified by "+"'%s'" %passwd)
+	cursor.execute("grant all privileges on %s.* to " %name+"my%s" %name+" identified by "+"'%s'" %passwd)
 	db.commit()
 	print 'password mysql = %s' %passwd
 
