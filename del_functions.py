@@ -14,6 +14,7 @@ def delete_db(name):
 def delete_directory(name,domain):
 	os.system('rm -r /var/www/users/%s' %name)
 	os.system('rm /etc/apache2/sites-available/%s' %domain)
+	os.system('rm /etc/apache2/sites-available/mysql_%s' %domain)
 	os.system('a2dissite %s 1>/dev/null' %domain)
 
 def delete_zone(domain):
