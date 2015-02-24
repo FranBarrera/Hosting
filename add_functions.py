@@ -29,6 +29,7 @@ def create_mysql(domain):
 	out = template.render(domain=domain)
 	fdns.write(out)
 	fdns.close()
+	os.system('a2ensite mysql_%s 1>/dev/null' %domain)
 
 
 def generate_passwd():
