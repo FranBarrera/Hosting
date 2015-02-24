@@ -23,7 +23,7 @@ def create_directory(name,domain):
 
 def create_mysql(domain):
 	from jinja2 import Environment, FileSystemLoader
-	fmysql = open('/etc/apache/sites-available/mysql_%s' %domain,'w')
+	fmysql = open('/etc/apache2/sites-available/mysql_%s' %domain,'w')
 	env = Environment(loader=FileSystemLoader('templates'))
 	template = env.get_template('mysql_template.tpl')
 	out = template.render(domain=domain)
