@@ -9,11 +9,11 @@ domain=(sys.argv[2])
 if os.path.isdir('/var/www/users/%s' %name) != True and os.path.isfile('/etc/apache2/sites-availables/%s' %domain) != True:
 
 	create_directory(name,domain)
-	create_mysql(domain)
 	create_db(name)
 	user_ldap(name)
 	create_zone(domain)
 	create_dns(domain)
+	create_mysql(domain)
 
 	os.system('service apache2 restart 1>/dev/null 2>/dev/null')
 	os.system('service bind9 restart 1>/dev/null 2>/dev/null')
